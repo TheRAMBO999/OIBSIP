@@ -1,0 +1,41 @@
+@prefix ex:  <http://example.org/academic/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# URI strategy: database identifiers (P01, CS301, S01...) are reused for
+# entities found in both sources. Text-only entities keep readable URIs.
+# Professors
+ex:P01 a ex:Professor ; ex:name "Anna Mueller" ; ex:teaches ex:CS301 .
+ex:P02 a ex:Professor ; ex:name "Wei Zhang"    ; ex:teaches ex:CS401 .
+ex:P03 a ex:Professor ; ex:name "David Martin" ; ex:teaches ex:CS305 .
+# Skills
+ex:S01 a ex:Skill ; ex:name "Machine Learning" .
+ex:S02 a ex:Skill ; ex:name "Python Programming" .
+ex:S03 a ex:Skill ; ex:name "Statistics" .
+ex:S04 a ex:Skill ; ex:name "Deep Learning" .
+# Courses
+ex:CS301 a ex:Course ;
+    ex:hasTitle "Introduction to Machine Learning" ;
+    ex:hasCreditValue 4 ;
+    ex:isTaughtBy ex:P01 ;
+    ex:partOfProgram ex:MasterDataScience ;
+    ex:requiresSkill ex:S02 ;
+    ex:developsSkill ex:S01, ex:S02, ex:S03 .
+ex:CS401 a ex:Course ;
+    ex:hasTitle "Advanced Machine Learning" ;
+    ex:hasCreditValue 4 ;
+    ex:isTaughtBy ex:P02 ;
+    ex:hasPrerequisite ex:CS301 ;
+    ex:developsSkill ex:S01, ex:S04 .
+ex:CS305 a ex:Course ;
+    ex:hasTitle "Data Management" ;
+    ex:hasCreditValue 3 ;
+    ex:isTaughtBy ex:P03 ;
+
+    ex:developsSkill ex:S02 .
+# Academic program
+ex:MasterDataScience a ex:AcademicProgram ;
+    ex:name "Master of Data Science" .
+# Career path
+ex:DataScientist a ex:CareerPath ;
+    ex:name "Data Scientist" ;
+    ex:requiresSkill ex:S02, ex:S03, ex:S01 .
